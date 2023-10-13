@@ -1,0 +1,57 @@
+var data = {"name":"pradeep","age":20,"city":"Sitapur","state":"Uttar Pradesh"};
+
+var pageProperties = {
+	HeaderImageAttachmentId: '',
+	HeaderImageAlignment: 'LEFT',
+	PageSize: 'A4',
+	GeneratePageNumber: 'true',
+	TopOrBottomMargin: '72',
+	LeftOrRightMargin: '36'
+};
+
+var html = '<style> @page { size: A4 portrait; margin-left: 1cm; margin-top: 3cm; margin-right: 1cm; margin-bottom: 3cm;' +
+	'@bottom-right { font-family: Arial; font-weight: bold; font-size: 1em; content: counter(page); }' +
+	'@top-center { font-family: Arial; font-size: 10pt; font-weight: bold; font-size: 1em; content: element(runningPageHeader); }' +
+	'}' +
+	'#pageHeader { position: running(runningPageHeader) }' +
+	' .left-align { text-align: left; }' +
+	' .right-align { text-align: right; }' +
+	' .lined-table { border-collapse: collapse; border: 1px solid black; }' +
+	' .lined-td { padding-left: 10px; border-collapse: collapse; border: 1px solid black; }' +
+	' .font1 { font-family: Arial; }' +
+	' .font2 { font-family: Flow; }' +
+	' .font3 { font-family: Verdana; }' +
+	' .font4 { font-family: AngryBirds; }' +
+	'</style>' +
+	'<div id="pageHeader">' + 
+	'<table width="100%" cellspacing="0" cellpadding="0">' +
+	'<tbody><tr>' +
+	'<td width="50%" class="left-align"><img src="image-150.png" /></td>' +
+	'<td width="50%" class="right-align"><img src="image2.jpg" /></td>' +
+	'</tr><tr><td>Testing User data</td></tr></tbody></table>' +
+	'</div>' + 
+	'<table width="100%" class="lined-table">' +
+	'<tbody><tr style="border-bottom:2px solid black;">' +
+	'<td width="30%" class="lined-td font1"><b>Name</b></td>' +
+	'<td width="15%" class="lined-td font2"><b>Age</b></td>' +
+	'<td width="15%" class="lined-td font3"><b>State</b></td>' +
+	'<td width="10%" class="lined-td font4"><b>City</b></td>' +
+	'<td width="30%" class="lined-td" style="font-family: arial;"><b>Signature participant</b><br/>USING A BLUE PEN</td>' +
+	'</tr></tbody></table>' + 
+	'<table width="100%" class="lined-table"><tbody>';
+
+for (var i = 0; i < 7; i++) {
+	html +=
+		'<tr>' +
+		'<td width="30%" class="lined-td">&nbsp;' + data.name+ '</td>' +
+		'<td width="15%" class="lined-td">&nbsp;' +data.age+ '</td>' + 
+		'<td width="15%" class="lined-td">&nbsp;'+data.state+'</td>' + 
+		'<td width="10%" class="lined-td">&nbsp;'+data.city+'</td>' + 
+		'<td width="30%" class="lined-td">&nbsp;</td></tr>';
+}
+html += '</tbody></table>';
+
+var target_table = 'incident';
+var target_id = current.sys_id;
+//sys_pdf_generation_font_family table is empty so last variable is empty
+new sn_pdfgeneratorutils.PDFGenerationAPI().convertToPDFWithHeaderFooter(html, target_table, target_id, 'iText7 PDF 11', pageProperties, '');
